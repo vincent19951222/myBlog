@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixel Dev | Coding Adventure</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              // Custom colors if needed
+            },
+            animation: {
+              'float-slow': 'float 8s ease-in-out infinite',
+              'float-medium': 'float 6s ease-in-out infinite',
+              'float-fast': 'float 4s ease-in-out infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Google Fonts: VT323 for retro text, Inter for readability -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .font-pixel {
+        font-family: 'VT323', monospace;
+      }
+      .font-pixel-bold {
+        font-family: 'Press Start 2P', cursive;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0f172a; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155; 
+        border-radius: 0px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #475569; 
+      }
+      
+      /* Retro Shadow Utility */
+      .retro-shadow {
+        box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.5);
+      }
+      .retro-shadow-hover:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.5);
+      }
+      .retro-shadow-yellow {
+        box-shadow: 4px 4px 0px 0px #b45309;
+      }
+
+      /* --- PIXEL ART BACKGROUNDS --- */
+
+      /* Graph Paper Grid */
+      .bg-pixel-grid {
+        background-size: 40px 40px;
+        background-image: 
+          linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+      }
+      .dark .bg-pixel-grid {
+        background-image: 
+          linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+      }
+
+      /* Pixel Stars (CSS Radial Gradients) */
+      .bg-pixel-stars {
+        background-image: 
+            radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+            radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+            radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+            radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+            radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+            radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
+        background-repeat: repeat;
+        background-size: 200px 200px;
+      }
+
+      /* Pixel Cloud Shape */
+      .pixel-cloud {
+        width: 60px;
+        height: 20px;
+        background: #fff;
+        box-shadow: 
+          20px -20px 0 0 #fff,
+          40px 0 0 0 #fff,
+          20px 20px 0 0 #fff,
+          -20px 0 0 0 #fff;
+        position: absolute;
+        opacity: 0.8;
+      }
+
+      .pixel-mountain {
+         width: 0; 
+         height: 0; 
+         border-left: 50px solid transparent;
+         border-right: 50px solid transparent;
+         border-bottom: 100px solid;
+         image-rendering: pixelated;
+      }
+
+      /* --- CURSOR STYLES (NES.css inspired) --- */
+      
+      /* Default cursor */
+      html {
+          cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABFklEQVRYR9WXURLDIAhE6/0PbSdOtUpcd1Gnpv1KGpTHBpCE1/cXq+vrMph7dGvXZTtpfW10DCA5jrH1H0Jhs5E0hnZdCR+vb5S8Nn8mQCeS9BdSalYJqMBjAGzq59xAESN7VFVUgV8AZB/dZBR7QTFDCqGquvUBVVoEtgIwpQRzmANSFHgWQKExHdIrPeuMvQNDarXe6nC/AutgV3JW+6bgqQLeV8FekRtgV+ToDKEKnACYKsfZjjkam7a0ZpYTytwmgainpC3HvwBocgKOxqRjehoR9DFKNFYtOwCGYCszobeCbl26N6yyQ6g8X/Wex/rBPsNEV6qAMaJPMynIHQCoSqS9JSMmwef51LflTgCRszU7DvAGiV6mHWfsaVUAAAAASUVORK5CYII=), auto !important;
+      }
+
+      /* Clickable cursor */
+      a,
+      button,
+      .stardew-btn,
+      .theme-toggle,
+      .nav-links a,
+      [role="button"],
+      .cursor-pointer,
+      input[type="button"],
+      input[type="submit"],
+      .pixel-card,
+      .nes-pointer {
+          cursor: url(https://unpkg.com/nes.css@latest/assets/cursor-click.png), auto !important;
+      }
+
+      /* Text input cursor */
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      textarea {
+          cursor: text !important;
+      }
+
+      /* Disabled cursor */
+      .cursor-not-allowed,
+      [disabled],
+      .opacity-50 {
+          cursor: not-allowed !important;
+      }
+
+      /* Ensure body inherits cursor */
+      body {
+          cursor: inherit;
+      }
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
