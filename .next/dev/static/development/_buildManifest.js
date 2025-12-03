@@ -1,7 +1,33 @@
 self.__BUILD_MANIFEST = {
+  "/_error": [
+    "static/chunks/pages/_error.js"
+  ],
   "__rewrites": {
     "afterFiles": [],
-    "beforeFiles": [],
+    "beforeFiles": [
+      {
+        "has": [
+          {
+            "type": "header",
+            "key": "next-url",
+            "value": "/explore(?:/.*)?"
+          }
+        ],
+        "source": "/explore/:nxtIid",
+        "destination": "/explore/(.):nxtIid"
+      },
+      {
+        "has": [
+          {
+            "type": "header",
+            "key": "next-url",
+            "value": "/explore(?:/.*)?"
+          }
+        ],
+        "source": "/explore/:nxtIid",
+        "destination": "/explore/(.):nxtIid"
+      }
+    ],
     "fallback": []
   },
   "sortedPages": [

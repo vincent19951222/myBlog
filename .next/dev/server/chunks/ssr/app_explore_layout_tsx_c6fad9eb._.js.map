@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/vincent/Projects/blog-website/app/explore/layout.tsx"],"sourcesContent":["\nimport React from 'react';\n\nexport default function ExploreLayout({\n  children,\n  modal\n}: {\n  children: React.ReactNode\n  modal: React.ReactNode\n}) {\n  return (\n    <>\n      {children}\n      {modal}\n    </>\n  );\n}\n"],"names":[],"mappings":";;;;;;AAGe,SAAS,cAAc,EACpC,QAAQ,EACR,KAAK,EAIN;IACC,qBACE;;YACG;YACA;;;AAGP"}}]
+}

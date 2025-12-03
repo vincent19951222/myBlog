@@ -1,6 +1,7 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/explore/@modal/(.)[id]/page": "app/explore/@modal/(.)[id]/page.js",
+  "/explore/[id]/page": "app/explore/[id]/page.js",
   "/explore/page": "app/explore/page.js",
-  "/lab/page": "app/lab/page.js",
-  "/me/page": "app/me/page.js",
   "/page": "app/page.js"
 }
