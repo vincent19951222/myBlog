@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from './ThemeContext';
+import { PixelButton } from './PixelButton';
 import { 
   Terminal, 
   Code2, 
@@ -72,9 +73,9 @@ export const NavBar = () => {
           {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
         </button>
 
-        <button className="bg-yellow-400 text-black px-4 py-1 font-pixel-bold-cn text-lg font-bold rounded-sm hover:bg-yellow-300 transition-colors hidden sm:block border-2 border-b-4 border-yellow-600 hover:border-b-2 hover:translate-y-[2px]">
-          登录
-        </button>
+        <div>
+            <PixelButton />
+        </div>
       </div>
     </nav>
   );

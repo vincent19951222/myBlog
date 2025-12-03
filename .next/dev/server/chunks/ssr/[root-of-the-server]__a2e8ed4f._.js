@@ -69,6 +69,202 @@ const mod = __turbopack_context__.x("next/dist/server/app-render/work-async-stor
 
 module.exports = mod;
 }),
+"[project]/app/components/PixelButton.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "PixelButton",
+    ()=>PixelButton
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/styled-jsx/style.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$gamepad$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Gamepad2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/gamepad-2.js [app-ssr] (ecmascript) <export default as Gamepad2>");
+'use client';
+;
+;
+;
+;
+const PixelButton = ()=>{
+    const [score, setScore] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [clickCount, setClickCount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [cooldown, setCooldown] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [isPressed, setIsPressed] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const buttonRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const audioContextRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    // Initialize Audio Context
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+            audioContextRef.current = new AudioContext();
+        }
+        return ()=>{
+            if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+                audioContextRef.current.close();
+            }
+        };
+    }, []);
+    const play8BitSound = ()=>{
+        if (!audioContextRef.current) return;
+        // Resume context if suspended (browser policy)
+        if (audioContextRef.current.state === 'suspended') {
+            audioContextRef.current.resume();
+        }
+        const ctx = audioContextRef.current;
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        oscillator.type = 'square'; // 8-bit sound characteristic
+        oscillator.frequency.setValueAtTime(440, ctx.currentTime); // A4
+        oscillator.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.1); // Slide up
+        gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+        oscillator.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        oscillator.start();
+        oscillator.stop(ctx.currentTime + 0.1);
+    };
+    const playEasterEggSound = ()=>{
+        if (!audioContextRef.current) return;
+        if (audioContextRef.current.state === 'suspended') {
+            audioContextRef.current.resume();
+        }
+        const ctx = audioContextRef.current;
+        // Simple arpeggio
+        const notes = [
+            523.25,
+            659.25,
+            783.99,
+            1046.50
+        ]; // C E G C
+        notes.forEach((freq, i)=>{
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'square';
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.1, ctx.currentTime + i * 0.1);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.1 + 0.1);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(ctx.currentTime + i * 0.1);
+            osc.stop(ctx.currentTime + i * 0.1 + 0.1);
+        });
+    };
+    const handleClick = (e)=>{
+        if (cooldown) {
+            // Optional: Play a "denied" sound
+            return;
+        }
+        play8BitSound();
+        setIsPressed(true);
+        setTimeout(()=>setIsPressed(false), 150);
+        // Add score popup
+        const rect = buttonRef.current?.getBoundingClientRect();
+        if (rect) {
+            const newScore = {
+                id: Date.now(),
+                x: 0,
+                y: -20,
+                text: "SCORE +100"
+            };
+            setScore((prev)=>[
+                    ...prev,
+                    newScore
+                ]);
+            // Remove score after animation
+            setTimeout(()=>{
+                setScore((prev)=>prev.filter((s)=>s.id !== newScore.id));
+            }, 1000);
+        }
+        // Easter egg logic
+        const newClickCount = clickCount + 1;
+        setClickCount(newClickCount);
+        if (newClickCount >= 3) {
+            triggerEasterEgg();
+            setClickCount(0);
+        }
+    };
+    const triggerEasterEgg = ()=>{
+        setCooldown(true);
+        playEasterEggSound();
+        const eggId = Date.now() + 'egg';
+        setScore((prev)=>[
+                ...prev,
+                {
+                    id: Date.now(),
+                    x: 0,
+                    y: -40,
+                    text: "别点了，鼠标要坏了!"
+                }
+            ]);
+        setTimeout(()=>{
+            setScore((prev)=>prev.filter((s)=>s.text !== "别点了，鼠标要坏了!"));
+            setCooldown(false);
+        }, 30000); // 30s cooldown
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "jsx-1896778332c4f7bf" + " " + "relative inline-block",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                ref: buttonRef,
+                onClick: handleClick,
+                disabled: cooldown,
+                className: "jsx-1896778332c4f7bf" + " " + `
+            relative
+            bg-yellow-400 
+            text-slate-900 
+            px-2 md:px-4 py-1 
+            font-pixel-bold-cn 
+            text-sm md:text-lg 
+            font-bold 
+            rounded-sm 
+            transition-all 
+            duration-75
+            border-2 
+            border-yellow-600
+            select-none
+            flex items-center gap-2
+            ${isPressed ? 'translate-y-[4px] border-b-2 shadow-none' : 'border-b-[6px] hover:border-b-[4px] hover:translate-y-[2px]'}
+            ${cooldown ? 'opacity-50 cursor-not-allowed grayscale' : 'hover:bg-yellow-300'}
+        `,
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$gamepad$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Gamepad2$3e$__["Gamepad2"], {
+                        size: 18,
+                        className: isPressed ? 'scale-90' : ''
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/PixelButton.tsx",
+                        lineNumber: 159,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0)),
+                    "START GAME"
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/components/PixelButton.tsx",
+                lineNumber: 136,
+                columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0)),
+            score.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    style: {
+                        top: s.y
+                    },
+                    className: "jsx-1896778332c4f7bf" + " " + "absolute left-1/2 transform -translate-x-1/2 pointer-events-none z-50 animate-float-up text-xs font-pixel-bold-cn text-green-500 whitespace-nowrap text-shadow-sm",
+                    children: s.text
+                }, s.id, false, {
+                    fileName: "[project]/app/components/PixelButton.tsx",
+                    lineNumber: 165,
+                    columnNumber: 9
+                }, ("TURBOPACK compile-time value", void 0))),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                id: "1896778332c4f7bf",
+                children: "@keyframes float-up{0%{opacity:1;transform:translate(-50%)scale(1)}to{opacity:0;transform:translate(-50%,-30px)scale(1.2)}}.animate-float-up.jsx-1896778332c4f7bf{animation:1s ease-out forwards float-up}.text-shadow-sm.jsx-1896778332c4f7bf{text-shadow:1px 1px #000}"
+            }, void 0, false, void 0, ("TURBOPACK compile-time value", void 0))
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/components/PixelButton.tsx",
+        lineNumber: 135,
+        columnNumber: 5
+    }, ("TURBOPACK compile-time value", void 0));
+};
+}),
 "[project]/app/components/LayoutClient.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -82,6 +278,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ThemeContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/ThemeContext.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$PixelButton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/PixelButton.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$terminal$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Terminal$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/terminal.js [app-ssr] (ecmascript) <export default as Terminal>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$code$2d$xml$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Code2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/code-xml.js [app-ssr] (ecmascript) <export default as Code2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$gamepad$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Gamepad2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/gamepad-2.js [app-ssr] (ecmascript) <export default as Gamepad2>");
@@ -94,6 +291,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$linkedin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Linkedin$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/linkedin.js [app-ssr] (ecmascript) <export default as Linkedin>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$cpu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Cpu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/cpu.js [app-ssr] (ecmascript) <export default as Cpu>");
 'use client';
+;
 ;
 ;
 ;
@@ -249,9 +447,12 @@ const NavBar = ()=>{
                         lineNumber: 68,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        className: "bg-yellow-400 text-black px-4 py-1 font-pixel-bold-cn text-lg font-bold rounded-sm hover:bg-yellow-300 transition-colors hidden sm:block border-2 border-b-4 border-yellow-600 hover:border-b-2 hover:translate-y-[2px]",
-                        children: "登录"
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$PixelButton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["PixelButton"], {}, void 0, false, {
+                            fileName: "[project]/app/components/LayoutClient.tsx",
+                            lineNumber: 77,
+                            columnNumber: 13
+                        }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/app/components/LayoutClient.tsx",
                         lineNumber: 76,
@@ -524,6 +725,18 @@ const Footer = ()=>{
     }, ("TURBOPACK compile-time value", void 0));
 };
 }),
+"[externals]/next/dist/server/app-render/after-task-async-storage.external.js [external] (next/dist/server/app-render/after-task-async-storage.external.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/server/app-render/after-task-async-storage.external.js", () => require("next/dist/server/app-render/after-task-async-storage.external.js"));
+
+module.exports = mod;
+}),
+"[externals]/next/dist/server/app-render/dynamic-access-async-storage.external.js [external] (next/dist/server/app-render/dynamic-access-async-storage.external.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/server/app-render/dynamic-access-async-storage.external.js", () => require("next/dist/server/app-render/dynamic-access-async-storage.external.js"));
+
+module.exports = mod;
+}),
 ];
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__9ecea5b7._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__a2e8ed4f._.js.map
