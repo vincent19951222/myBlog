@@ -1,0 +1,60 @@
+
+import React from 'react';
+import './globals.css';
+import { ThemeProvider } from './components/ThemeContext';
+import { NavBar, Footer } from './components/LayoutClient';
+
+export const metadata = {
+  title: '李面条的实验室',
+  description: '一个充满像素、代码和复古梦想的数字角落。',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="zh-CN" suppressHydrationWarning>
+      <head>
+        {/* Fonts and Tailwind included via CDN for demo consistency, ideally use next/font and postcss */}
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script dangerouslySetInnerHTML={{__html: `
+          tailwind.config = {
+            darkMode: 'class',
+            theme: {
+              extend: {
+                animation: {
+                  'float-slow': 'float 8s ease-in-out infinite',
+                  'float-medium': 'float 6s ease-in-out infinite',
+                  'float-fast': 'float 4s ease-in-out infinite',
+                  'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                },
+                keyframes: {
+                  float: {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-10px)' },
+                  }
+                }
+              }
+            }
+          }
+        `}}></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=VT323&family=Press+Start+2P&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet"/>
+      </head>
+      <body className="font-sans antialiased">
+        <ThemeProvider>
+          <div className="bg-pixel-grid min-h-screen flex flex-col transition-colors duration-300 bg-white dark:bg-[#050b14] selection:bg-yellow-500/30 selection:text-yellow-900">
+            <NavBar />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pixel Dev | Coding Adventure</title>
+    <title>李面条的实验室</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -30,20 +30,26 @@
         }
       }
     </script>
-    <!-- Google Fonts: VT323 for retro text, Inter for readability -->
+    <!-- Google Fonts: VT323 for retro text, Inter for readability, ZCOOL KuaiLe for Chinese Retro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=VT323&family=Press+Start+2P&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
       body {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Noto Sans SC', 'Inter', sans-serif;
       }
       .font-pixel {
         font-family: 'VT323', monospace;
       }
+      /* Use ZCOOL KuaiLe for Chinese "Pixel-like" Headers */
       .font-pixel-bold {
-        font-family: 'Press Start 2P', cursive;
+        font-family: 'Press Start 2P', 'ZCOOL KuaiLe', cursive;
       }
+      /* Specific class for mixed content */
+      .font-pixel-bold-cn {
+        font-family: 'ZCOOL KuaiLe', 'Press Start 2P', cursive;
+      }
+      
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 10px;
@@ -164,6 +170,39 @@
           cursor: inherit;
       }
 
+      /* --- Typewriter Effect Cursor --- */
+      .Typewriter__cursor {
+        display: inline-block;
+        width: 14px;
+        height: 1em;
+        background: #fbbf24; /* Match yellow/orange theme */
+        margin-left: 4px;
+        vertical-align: text-bottom;
+        animation: blink 1s step-end infinite;
+      }
+      
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
+      /* --- Glitch Hover Effect --- */
+      @keyframes glitch-shake {
+        0% { transform: translate(0); }
+        25% { transform: translate(-2px, 2px); }
+        50% { transform: translate(2px, -2px); }
+        75% { transform: translate(-2px, -2px); }
+        100% { transform: translate(0); }
+      }
+      
+      .hover-glitch:hover {
+        animation: glitch-shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+        text-decoration: underline;
+        text-decoration-style: wavy;
+        text-decoration-thickness: 3px;
+        text-underline-offset: 4px;
+      }
+
     </style>
   <script type="importmap">
 {
@@ -172,7 +211,10 @@
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
     "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0"
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "typewriter-effect": "https://esm.sh/typewriter-effect@2.21.0?external=react,react-dom",
+    "framer-motion": "https://esm.sh/framer-motion@11.18.2?external=react,react-dom",
+    "next/": "https://aistudiocdn.com/next@^16.0.6/"
   }
 }
 </script>
