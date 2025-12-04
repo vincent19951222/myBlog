@@ -36,6 +36,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: 22
+        debug: true
+        use_insecure_cipher: true
         
         # 核心配置：
         source: "out"  # 上传 out 文件夹 (Next.js 默认导出目录)
