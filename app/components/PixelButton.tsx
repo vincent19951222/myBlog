@@ -140,7 +140,8 @@ export const PixelButton = () => {
             relative
             bg-yellow-400 
             text-slate-900 
-            px-2 md:px-4 py-1 
+            px-3 md:px-4 
+            h-11 md:h-auto md:py-1
             font-pixel-bold-cn 
             text-sm md:text-lg 
             font-bold 

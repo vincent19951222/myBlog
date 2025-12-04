@@ -1,41 +1,7 @@
 self.__BUILD_MANIFEST = {
   "__rewrites": {
     "afterFiles": [],
-    "beforeFiles": [
-      {
-        "has": [
-          {
-            "type": "header",
-            "key": "next-url",
-            "value": "/explore(?:/.*)?"
-          }
-        ],
-        "source": "/explore/:nxtIid",
-        "destination": "/explore/(.):nxtIid"
-      },
-      {
-        "has": [
-          {
-            "type": "header",
-            "key": "next-url",
-            "value": "/explore(?:/.*)?"
-          }
-        ],
-        "source": "/explore/:nxtIid",
-        "destination": "/explore/(.):nxtIid"
-      },
-      {
-        "has": [
-          {
-            "type": "header",
-            "key": "next-url",
-            "value": "/explore(?:/.*)?"
-          }
-        ],
-        "source": "/explore/:nxtIid",
-        "destination": "/explore/(.):nxtIid"
-      }
-    ],
+    "beforeFiles": [],
     "fallback": []
   },
   "sortedPages": [
