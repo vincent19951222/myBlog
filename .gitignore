@@ -11,10 +11,14 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+.env.*
+!.env.example
 
 # Next.js build output
 .next
 out
+.vercel
 
 # Editor directories and files
 .vscode/*
@@ -26,3 +30,5 @@ out
 *.njsproj
 *.sln
 *.sw?
+*.tsbuildinfo
+coverage/
