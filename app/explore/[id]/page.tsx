@@ -5,6 +5,12 @@ import { ArrowLeft, Calendar, Clock, Zap } from "lucide-react";
 import { MarkdownRenderer } from '../../components/Common';
 import { BLOG_POSTS } from '../../lib/data';
 
+export async function generateStaticParams() {
+  return BLOG_POSTS.map((post) => ({
+    id: post.id.toString(),
+  }));
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ id: string }> }) {
   // In Next.js 15, params is a Promise. Awaiting it to be safe for latest versions.
   const resolvedParams = await params;

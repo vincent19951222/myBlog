@@ -1,0 +1,46 @@
+name: 自动部署到腾讯云
+
+# 1. 触发条件：只有 main 分支有变动时，才执行
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # 使用 GitHub 提供的虚拟电脑
+
+    steps:
+    # 第一步：下载代码
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # 第二步：安装 Node.js (准备厨房)
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20' # Next.js 16 建议使用较新的 Node 版本
+
+    # 第三步：打包 (做饭)
+    - name: Install and Build
+      run: |
+        npm install
+        npm run build
+      # Next.js 静态导出模式下，会生成 out 文件夹
+
+    # 第四步：上传 (送外卖)
+    - name: Deploy to Server
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        
+        # 核心配置：
+        source: "out"  # 上传 out 文件夹 (Next.js 默认导出目录)
+        target: "/www/wwwroot/boluopets.com" # 目标是服务器的网站根目录
+        strip_components: 1  # <--- ⭐ 重点！
+        # 这句话的意思是：上传时把 "out" 这层皮剥掉！
+        # 这样 dist/index.html 就会直接变成服务器上的 index.html
+        # 完美解决了你之前担心的目录层级问题。
