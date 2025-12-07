@@ -153,22 +153,22 @@ export const Footer = () => {
                <span className="font-pixel-bold-cn text-xl text-slate-900 dark:text-white">李面条的<span className="text-yellow-600 dark:text-yellow-400">实验室</span></span>
             </Link>
             <p className="text-slate-500 dark:text-gray-400 text-sm max-w-xs leading-relaxed">
-              一个充满像素、代码和复古梦想的数字角落。在这里，每一行代码都是一次冒险。
+              在赛博鹈鹕镇种田, 尝试玩玩 AI 来实现开花结果.
             </p>
             <p className="text-xs text-slate-400 font-mono mt-4">
-              © 2024 李面条. Press Start.
+              © 2025 李面条. Let's GOOOO~.
             </p>
           </div>
 
           <div className="flex flex-col items-center md:items-start space-y-4">
             <h4 className="font-pixel-bold-cn text-lg text-slate-900 dark:text-white uppercase tracking-wider mb-2 border-b-2 border-yellow-400 inline-block pb-1">
-              快速传送
+              传送门
             </h4>
             <nav className="flex flex-col space-y-3">
               <Link href="/" className="text-slate-600 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors text-sm font-medium hover:translate-x-1 duration-200 text-left">回到首页</Link>
-              <Link href="/explore" className="text-slate-600 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors text-sm font-medium hover:translate-x-1 duration-200 text-left">探索日志</Link>
-              <Link href="/lab" className="text-slate-600 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors text-sm font-medium hover:translate-x-1 duration-200 text-left">疯狂实验室</Link>
-              <Link href="/me" className="text-slate-600 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors text-sm font-medium hover:translate-x-1 duration-200 text-left">角色面板</Link>
+              <Link href="/explore" className="text-slate-600 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors text-sm font-medium hover:translate-x-1 duration-200 text-left">看看博客</Link>
+              <Link href="/lab" className="text-slate-600 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors text-sm font-medium hover:translate-x-1 duration-200 text-left">随便探索</Link>
+              <Link href="/me" className="text-slate-600 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors text-sm font-medium hover:translate-x-1 duration-200 text-left">李面条是谁?</Link>
             </nav>
           </div>
 

@@ -49,7 +49,7 @@ export const Hero = () => {
           <div className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 dark:from-yellow-400 dark:via-orange-400 dark:to-red-400">
             <Typewriter
               options={{
-                strings: ['Hello, World.', 'I build things.', 'I break things.', 'Welcome to my Blog.'],
+                strings: ['I build things.', 'I make products.', 'Welcome to my Blog.'],
                 autoStart: true,
                 loop: true,
                 delay: 75,

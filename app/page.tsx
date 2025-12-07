@@ -1,10 +1,10 @@
-
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, GitCommit } from "lucide-react";
 import { Hero } from './components/HomeClient';
 import { QuestCard } from './components/Common';
-import { TIMELINE_EVENTS, BLOG_POSTS, PROJECTS } from './lib/data';
+import { TIMELINE_EVENTS, PROJECTS } from './lib/data';
+import { getAllPosts, Post } from './lib/posts';
 
 const HomeTimeline = () => {
   return (
@@ -12,7 +12,7 @@ const HomeTimeline = () => {
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="flex items-center gap-3 mb-8 justify-center md:justify-start">
            <GitCommit className="text-slate-400 dark:text-slate-500" size={20} />
-           <h3 className="font-pixel-bold-cn text-xl text-slate-500 dark:text-slate-400 tracking-widest uppercase">系统日志</h3>
+           <h3 className="font-pixel-bold-cn text-xl text-slate-500 dark:text-slate-400 tracking-widest uppercase">时间足迹</h3>
         </div>
 
         <div className="space-y-0 relative ml-2 md:ml-4">
@@ -44,7 +44,7 @@ const HomeTimeline = () => {
   );
 };
 
-const HomeQuests = () => {
+const HomeQuests = ({ posts }: { posts: Post[] }) => {
   return (
     <section className="py-16 bg-white dark:bg-[#050b14]">
       <div className="container mx-auto px-4">
@@ -57,11 +57,17 @@ const HomeQuests = () => {
            </Link>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {BLOG_POSTS.slice(0, 4).map((post) => (
-            <QuestCard key={post.id} post={post} />
-          ))}
-        </div>
+        {posts.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {posts.slice(0, 4).map((post) => (
+              <QuestCard key={post.slug} post={{ ...post, id: post.slug }} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-10 text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/50 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-800">
+            暂无探索记录...
+          </div>
+        )}
       </div>
     </section>
   );
@@ -104,12 +110,13 @@ const HomeLabs = () => {
   );
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const posts = await getAllPosts();
   return (
     <div className="animate-fade-in">
       <Hero />
       <HomeTimeline />
-      <HomeQuests />
+      <HomeQuests posts={posts} />
       <HomeLabs />
     </div>
   );

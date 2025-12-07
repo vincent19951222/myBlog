@@ -13,10 +13,10 @@ export const USER_CONTEXT = `
 `;
 
 export const TIMELINE_EVENTS = [
-  { date: '2025-08-22', tag: 'UPDATE', content: '重构了首页逻辑，优化了移动端体验。' },
-  { date: '2025-08-15', tag: 'LAB', content: '发布了新项目：天气任务 (Weather Quest)。' },
-  { date: '2025-08-01', tag: 'ARTICLE', content: '发布文章：React Hooks 传说。' },
-  { date: '2025-07-20', tag: 'LIFE', content: '参加了上海 WebGL 开发者聚会。' },
+  { date: '2025-11-22', tag: 'UPDATE', content: '正式做好了博客网站!' },
+  { date: '2025-11-15', tag: 'LAB', content: '最近学习了好多 AI 知识,想给自己记录点什么东西' },
+  { date: '2025-04-01', tag: 'UPDATE', content: '持续的学习中' },
+  { date: '2024-07-20', tag: 'LIFE', content: '逃离北京了咯, 在武汉做做AI产品经理了~' },
 ];
 
 export const BLOG_POSTS = [
