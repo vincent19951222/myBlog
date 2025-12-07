@@ -1,9 +1,11 @@
 
 import React from 'react';
 import { QuestCard } from '../components/Common';
-import { BLOG_POSTS } from '../lib/data';
+import { getAllPosts } from '../lib/posts';
 
-export default function ExplorePage() {
+export default async function BlogPage() {
+  const posts = await getAllPosts();
+
   return (
     <div className="container mx-auto px-4 py-12 animate-fade-in">
       <div className="text-center mb-12">
@@ -14,9 +16,12 @@ export default function ExplorePage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {BLOG_POSTS.map((post) => (
-          <div key={post.id} className="h-full">
-             <QuestCard post={post} />
+        {posts.map((post) => (
+          <div key={post.slug} className="h-full">
+             <QuestCard post={{
+               id: post.slug, // Use slug as ID for the link
+               ...post
+             }} />
           </div>
         ))}
       </div>

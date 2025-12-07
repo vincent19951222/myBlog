@@ -159,8 +159,24 @@ export const MarkdownRenderer = ({ content }) => {
 export const QuestCard = ({ post }) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  // Check if id is a number (old way) or string (new slug way)
+  // If it's a number, it's from mock data (legacy support if needed, but we are moving to slugs).
+  // If it's a string, we assume it's a slug and link to /blog/[slug].
+  // However, ExplorePage now passes slug as id.
+  // We need to decide the href based on id type or context.
+  // To keep it simple, if id is string and looks like a slug, go to blog.
+  // Actually, we can just change the link to /blog/${post.id} if we assume ExplorePage passes slug.
+  
+  // But wait, the original code linked to /explore/[id].
+  // If we change it here, we affect everything using QuestCard.
+  // ExplorePage uses QuestCard.
+  
+  // const href = typeof post.id === 'string' ? `/blog/${post.id}` : `/explore/${post.id}`;
+  // Now we unified routes to /blog
+  const href = typeof post.id === 'string' ? `/blog/${post.id}` : `/blog/${post.id}`;
+
   return (
-    <Link href={`/explore/${post.id}`}>
+    <Link href={href}>
       <motion.div
         layoutId={`card-${post.id}`}
         onMouseEnter={() => setIsHovered(true)}

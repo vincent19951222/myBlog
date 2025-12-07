@@ -52,7 +52,7 @@ const HomeQuests = () => {
            <h2 className="font-pixel-bold-cn text-2xl md:text-3xl text-slate-800 dark:text-white flex items-center gap-3">
              <span className="text-yellow-500">Lv.1</span> 近期探索
            </h2>
-           <Link href="/explore" className="text-sm font-bold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center gap-1">
+           <Link href="/blog" className="text-sm font-bold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center gap-1">
              查看全部 <ArrowRight size={14} />
            </Link>
         </div>

@@ -27,7 +27,7 @@ export const NavBar = () => {
 
   const navItems = [
     { id: '/', label: '首页', icon: <Terminal size={18} /> },
-    { id: '/explore', label: '探索', icon: <Code2 size={18} /> },
+    { id: '/blog', label: '探索', icon: <Code2 size={18} /> },
     { id: '/lab', label: '实验室', icon: <Cpu size={18} /> },
     { id: '/me', label: '角色', icon: <User size={18} /> },
   ];
