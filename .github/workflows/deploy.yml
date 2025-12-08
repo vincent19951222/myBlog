@@ -58,6 +58,7 @@ jobs:
           npm install --production --legacy-peer-deps
           # 更新 PM2 守护进程以匹配当前 Node 版本 (解决 MODULE_NOT_FOUND 错误)
           pm2 update
-          # 重启 PM2 (让更新生效)
-          # 注意：必须加上 --cwd 指定工作目录，否则 npm 会去 /root 下找 package.json
-          pm2 reload next-blog || pm2 start npm --name "next-blog" --cwd /www/wwwroot/boluopets.com -- start
+          # 强制更新 PM2 配置：先删除旧进程，再用新配置启动
+          # 这样可以确保 cwd (工作目录) 等配置被正确应用
+          pm2 delete next-blog || true
+          pm2 start npm --name "next-blog" --cwd /www/wwwroot/boluopets.com -- start
