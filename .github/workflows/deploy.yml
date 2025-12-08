@@ -56,5 +56,7 @@ jobs:
           cd /www/wwwroot/boluopets.com
           # 安装生产环境依赖 (因为刚才没传 node_modules)
           npm install --production --legacy-peer-deps
+          # 更新 PM2 守护进程以匹配当前 Node 版本 (解决 MODULE_NOT_FOUND 错误)
+          pm2 update
           # 重启 PM2 (让更新生效)
           pm2 reload next-blog || pm2 start npm --name "next-blog" -- start
