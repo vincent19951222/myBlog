@@ -25,9 +25,9 @@ jobs:
       run: |
         npm install --legacy-peer-deps
         npm run build
-      # 注意：现在 build 生成的是 .next 文件夹，而不是 out
+      # 注意：build 生成的是 out 文件夹（因为 next.config.js 配置了 output: 'export'）
 
-    # 4. 上传文件到服务器 (关键变化！)
+    # 4. 上传文件到服务器 (静态部署模式)
     - name: Copy files to Server
       uses: appleboy/scp-action@master
       with:
@@ -38,27 +38,21 @@ jobs:
         debug: true
         use_insecure_cipher: true
         
-        # ⭐ 核心变化：上传运行 Node 服务所需的所有文件
-        # 不要上传 node_modules (太大)，我们在服务器上安装
-        source: "package.json, package-lock.json, next.config.js, public, .next"
+        # ⭐ 静态部署：只上传 out 文件夹的内容
+        source: "out"
         target: "/www/wwwroot/boluopets.com"
-        # 注意：这里去掉了 strip_components，因为我们要上传多个文件/文件夹
+        # 去掉第一层目录(out)，直接把内容放到根目录
+        strip_components: 1
 
-    # 5. 远程执行命令 (新增步骤！)
-    # 文件传过去后，还需要告诉服务器："装一下依赖，然后重启服务"
-    - name: Install Dependencies and Restart PM2
+    # 5. 远程执行命令 (可选)
+    # 静态网站通常不需要重启服务，除非你需要重载 Nginx 配置
+    # 这里我们只打印一下文件列表确认上传成功
+    - name: Verify Deployment
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         script: |
-          cd /www/wwwroot/boluopets.com
-          # 安装生产环境依赖 (因为刚才没传 node_modules)
-          npm install --production --legacy-peer-deps
-          # 更新 PM2 守护进程以匹配当前 Node 版本 (解决 MODULE_NOT_FOUND 错误)
-          pm2 update
-          # 强制更新 PM2 配置：先删除旧进程，再用新配置启动
-          # 这样可以确保 cwd (工作目录) 等配置被正确应用
-          pm2 delete next-blog || true
-          pm2 start npm --name "next-blog" --cwd /www/wwwroot/boluopets.com -- start
+          echo "Deployment successful!"
+          ls -al /www/wwwroot/boluopets.com
