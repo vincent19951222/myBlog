@@ -7,6 +7,15 @@ import { NavBar, Footer } from './components/LayoutClient';
 export const metadata = {
   title: '李面条的实验室',
   description: '一个充满像素、代码和复古梦想的数字角落。',
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png' },
+    ],
+  },
 };
 
 export default function RootLayout({
