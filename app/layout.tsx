@@ -3,6 +3,7 @@ import React from 'react';
 import './globals.css';
 import { ThemeProvider } from './components/ThemeContext';
 import { NavBar, Footer } from './components/LayoutClient';
+import { inter, vt323, pressStart2P } from './lib/fonts';
 
 export const metadata = {
   title: '李面条的实验室',
@@ -24,9 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html lang="zh-CN" suppressHydrationWarning className={`${inter.variable} ${vt323.variable} ${pressStart2P.variable}`}>
       <head>
-        {/* Fonts and Tailwind included via CDN for demo consistency, ideally use next/font and postcss */}
         <script src="https://cdn.tailwindcss.com"></script>
         <script dangerouslySetInnerHTML={{__html: `
           tailwind.config = {
@@ -49,11 +49,8 @@ export default function RootLayout({
             }
           }
         `}}></script>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=VT323&family=Press+Start+2P&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet"/>
       </head>
-      <body className="font-sans antialiased">
+      <body className={`${inter.className} font-sans antialiased`}>
         <ThemeProvider>
           <div className="bg-pixel-grid min-h-screen flex flex-col transition-colors duration-300 bg-white dark:bg-[#050b14] selection:bg-yellow-500/30 selection:text-yellow-900">
             <NavBar />
