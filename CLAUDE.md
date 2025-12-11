@@ -19,6 +19,134 @@ Keep this managed block so 'openspec update' can refresh the instructions.
 
 # CLAUDE.md
 
+## 项目初始化 (Project Initialization)
+
+**最后更新**: 2025-12-11
+**状态**: ✅ 已初始化 | 🚀 开发服务器运行中 (端口 3000)
+
+### 初始化步骤
+
+1. **安装依赖**
+   ```bash
+   npm install --legacy-peer-deps
+   ```
+   
+   > **注意**: 由于 React 19 与 `@testing-library/react@14` 存在 peer dependency 冲突，需要使用 `--legacy-peer-deps` 标志。
+
+2. **配置环境变量**
+   ```bash
+   cp .env.local.example .env.local
+   ```
+   
+   编辑 `.env.local` 并添加你的 Coze API 配置：
+   ```env
+   COZE_API_KEY=your_coze_api_key_here
+   COZE_BOT_ID=your_coze_bot_id_here
+   ```
+
+3. **启动开发服务器**
+   ```bash
+   npm run dev
+   ```
+   
+   访问 http://localhost:3000 查看应用。
+   
+   > **当前状态**: 开发服务器已在端口 3000 运行 (进程 ID: 18632)
+   > 
+   > 如需重启服务器:
+   > ```bash
+   > # 终止现有进程
+   > kill $(lsof -ti:3000)
+   > # 重新启动
+   > npm run dev
+   > ```
+
+### 依赖管理
+
+**已知问题**:
+- React 19 与 `@testing-library/react@14` 存在 peer dependency 冲突
+- 解决方案: 使用 `--legacy-peer-deps` 进行安装
+
+**安全审计**:
+- 当前存在 2 个漏洞 (1 high, 1 critical)
+- 运行 `npm audit fix` 可尝试自动修复
+
+### 开发工作流
+
+1. **代码检查**: `npm run lint` 或 `npm run lint:fix`
+2. **类型检查**: `npm run type-check`
+3. **代码格式化**: `npm run format` 或 `npm run format:check`
+4. **运行测试**: `npm run test` 或 `npm run test:watch`
+5. **完整 CI**: `npm run ci` (类型检查 + lint + 测试 + 构建)
+
+---
+
+## 生产部署 (SSR 模式)
+
+**更新日期**: 2025-12-11
+
+项目已从静态导出迁移至 SSR 模式，支持 AI 聊天 API 功能。
+
+### 部署架构
+
+```
+用户请求 → Nginx (80/443) → PM2/Next.js (3000) → Gemini API
+```
+
+### 宝塔面板部署步骤
+
+#### 1. 安装 PM2 管理器
+- 进入 **软件商店** → 搜索 **PM2管理器** → 安装
+
+#### 2. 首次部署 (SSH 手动执行)
+```bash
+cd /www/wwwroot/boluopets.com
+
+# 克隆项目 (如果是新目录)
+git clone https://github.com/你的用户名/blog-website.git .
+
+# 安装依赖
+npm install --legacy-peer-deps
+
+# 创建环境变量
+echo "GEMINI_API_KEY=你的API密钥" > .env.local
+
+# 构建
+npm run build
+
+# 启动 PM2
+pm2 start npm --name "blog-website" -- start
+pm2 startup
+pm2 save
+```
+
+#### 3. 配置 Nginx 反向代理
+在宝塔面板 **网站** → **设置** → **反向代理** → **添加**：
+- 代理名称: `nextjs`
+- 目标URL: `http://127.0.0.1:3000`
+- 发送域名: `$host`
+
+#### 4. 自动部署
+GitHub Actions 会自动执行：
+1. SSH 到服务器
+2. `git pull` 拉取代码
+3. `npm run build` 构建
+4. `pm2 restart` 重启服务
+
+### API 端点
+
+| 端点 | 方法 | 说明 |
+|------|------|------|
+| `/api/chat` | POST | AI 聊天 API |
+
+**请求格式**:
+```json
+{
+  "message": "用户消息",
+  "history": [{ "role": "user", "text": "..." }, ...]
+}
+```
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
