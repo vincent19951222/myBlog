@@ -198,34 +198,40 @@ export default function MePage() {
                   <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-r from-yellow-400 to-orange-400"></div>
                   <div className="relative mt-8 flex flex-col items-center">
                      <div className="w-24 h-24 bg-white p-1 rounded-full border-4 border-white shadow-lg overflow-hidden mb-4">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Avatar" className="w-full h-full bg-slate-100" />
+                        <img src="/images/blog/avatar.jpg" alt="Avatar" className="w-full h-full bg-slate-100 object-cover" />
                      </div>
                      <h2 className="font-pixel-bold-cn text-2xl text-slate-900 dark:text-white mb-1 transition-colors duration-300">李面条</h2>
                      <div className="px-3 py-1 bg-slate-200 dark:bg-slate-700 rounded-full text-xs font-mono text-slate-600 dark:text-slate-300 mb-4 transition-colors duration-300">
-                        Level 28 • 前端法师
+                        Level 30 • AI 产品经理
                      </div>
 
                      <p className="text-center text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed transition-colors duration-300">
-                        致力于创造像素完美的 Web 体验。喜欢钻研底层原理，同时也热衷于游戏开发。
+                        擅长将人类的‘胡思乱想’翻译成 AI 听得懂的咒语。致力于用 Prompt 填补技术与魔法的鸿沟，热衷于让 MVP 的落地速度追上大脑的脑洞
                      </p>
 
                      <div className="w-full space-y-4">
                         <div>
-                           <div className="flex justify-between text-xs font-bold mb-1 text-slate-500 dark:text-slate-400 transition-colors duration-300"><span>React / Next.js</span><span>90%</span></div>
+                           <div className="flex justify-between text-xs font-bold mb-1 text-slate-500 dark:text-slate-400 transition-colors duration-300"><span>AI Whispering - The Magic</span><span>99%</span></div>
                            <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden transition-colors duration-300">
-                              <div className="h-full bg-blue-500 w-[90%]"></div>
+                              <div className="h-full bg-blue-500 w-[99%]"></div>
                            </div>
                         </div>
                         <div>
-                           <div className="flex justify-between text-xs font-bold mb-1 text-slate-500 dark:text-slate-400 transition-colors duration-300"><span>WebGL / Three.js</span><span>75%</span></div>
+                           <div className="flex justify-between text-xs font-bold mb-1 text-slate-500 dark:text-slate-400 transition-colors duration-300"><span>AI Artifact Crafting - The Tool</span><span>85%</span></div>
                            <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden transition-colors duration-300">
-                              <div className="h-full bg-purple-500 w-[75%]"></div>
+                              <div className="h-full bg-purple-500 w-[85%]"></div>
                            </div>
                         </div>
                         <div>
-                           <div className="flex justify-between text-xs font-bold mb-1 text-slate-500 dark:text-slate-400 transition-colors duration-300"><span>Node.js</span><span>80%</span></div>
+                           <div className="flex justify-between text-xs font-bold mb-1 text-slate-500 dark:text-slate-400 transition-colors duration-300"><span>Idea to MVP Speed - The Agility</span><span>90%</span></div>
                            <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden transition-colors duration-300">
-                              <div className="h-full bg-green-500 w-[80%]"></div>
+                              <div className="h-full bg-green-500 w-[90%]"></div>
+                           </div>
+                        </div>
+                        <div>
+                           <div className="flex justify-between text-xs font-bold mb-1 text-slate-500 dark:text-slate-400 transition-colors duration-300"><span>Cat Herding - The Soft Skill</span><span>80%</span></div>
+                           <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden transition-colors duration-300">
+                              <div className="h-full bg-orange-500 w-[80%]"></div>
                            </div>
                         </div>
                      </div>

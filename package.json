@@ -29,6 +29,7 @@
     "next-mdx-remote": "^5.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "remark-gfm": "^4.0.1",
     "typewriter-effect": "2.21.0",
     "zod": "^3.22.0"
   },

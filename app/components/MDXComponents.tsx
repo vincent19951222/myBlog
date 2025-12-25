@@ -47,10 +47,10 @@ export const mdxComponents: MDXComponents = {
     // But let's try to mimic the `MarkdownRenderer` logic where we wrap the content.
     return (
       <div className="flex items-start gap-3 mb-2">
-         <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full mt-2.5 shrink-0"></div>
-         <div className="text-slate-700 dark:text-slate-300 text-lg leading-relaxed">
-            {children}
-         </div>
+        <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full mt-2.5 shrink-0"></div>
+        <div className="text-slate-700 dark:text-slate-300 text-lg leading-relaxed">
+          {children}
+        </div>
       </div>
     );
   },
@@ -86,9 +86,9 @@ export const mdxComponents: MDXComponents = {
     const isBlock = className && className.startsWith('language-');
     if (isBlock) {
       return (
-         <code className={`font-mono text-sm text-green-400 leading-relaxed ${className}`}>
-           {children}
-         </code>
+        <code className={`font-mono text-sm text-green-400 leading-relaxed ${className}`}>
+          {children}
+        </code>
       );
     }
     return (
@@ -108,4 +108,47 @@ export const mdxComponents: MDXComponents = {
   strong: ({ children }) => (
     <strong className="font-bold text-slate-900 dark:text-white">{children}</strong>
   ),
+  a: ({ children, href }) => (
+    <a
+      href={href}
+      className="font-bold text-slate-900 dark:text-white border-b-2 border-yellow-500 hover:bg-yellow-500/20 transition-all mx-1"
+      target={href?.startsWith('http') ? '_blank' : undefined}
+      rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+    >
+      {children}
+    </a>
+  ),
+  table: ({ children }) => (
+    <div className="overflow-x-auto my-8 border-2 border-slate-900 dark:border-slate-700 rounded-lg retro-shadow">
+      <table className="min-w-full text-sm divide-y-2 divide-slate-200 dark:divide-slate-700">
+        {children}
+      </table>
+    </div>
+  ),
+  thead: ({ children }) => (
+    <thead className="bg-slate-100 dark:bg-slate-800 font-pixel-bold-cn text-slate-900 dark:text-white uppercase tracking-wider">
+      {children}
+    </thead>
+  ),
+  tbody: ({ children }) => (
+    <tbody className="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900">
+      {children}
+    </tbody>
+  ),
+  tr: ({ children }) => (
+    <tr className="hover:bg-yellow-50 dark:hover:bg-yellow-900/10 transition-colors group">
+      {children}
+    </tr>
+  ),
+  th: ({ children }) => (
+    <th className="px-6 py-4 text-left font-bold border-r border-slate-200 dark:border-slate-700 last:border-r-0">
+      {children}
+    </th>
+  ),
+  td: ({ children }) => (
+    <td className="px-6 py-4 whitespace-nowrap text-slate-700 dark:text-slate-300 font-medium border-r border-slate-200 dark:border-slate-700 last:border-r-0 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+      {children}
+    </td>
+  ),
+
 };
