@@ -80,10 +80,32 @@ npm run build
 
 ```
 app/                    # Next.js App Router
-├── components/         # React 组件
+├── api/               # API 路由
+├── blog/              # 博客页面
+├── components/        # React 组件
+│   ├── Common.tsx         # 通用组件
+│   ├── HomeClient.tsx     # 首页客户端组件
+│   ├── LayoutClient.tsx   # 布局客户端组件
+│   ├── MDXComponents.tsx  # MDX 渲染组件
+│   ├── Modal.tsx          # 模态框组件
+│   ├── PixelButton.tsx    # 像素风格按钮
+│   └── ThemeContext.tsx   # 主题上下文
+├── lab/               # 实验室页面
 ├── lib/               # 工具函数和配置
-├── styles/            # 样式文件
-└── __tests__/         # 测试文件
+│   ├── __tests__/         # 测试文件
+│   ├── data.ts            # 数据定义
+│   ├── env.ts             # 环境变量
+│   ├── error-handler.ts   # 错误处理
+│   ├── fonts.ts           # 字体配置
+│   ├── logger.ts          # 日志工具
+│   └── posts.ts           # 博文处理
+├── me/                # 个人介绍页面
+├── globals.css        # 全局样式
+├── layout.tsx         # 根布局
+└── page.tsx           # 首页
+content/               # 博客内容 (MDX)
+docs/                  # 项目文档
+public/                # 静态资源
 ```
 
 ### 代码规范
@@ -134,9 +156,11 @@ npm run ci
 
 ### 组件
 
-- **QuestCard** - 游戏化卡片组件
-- **像素边框** - 复古边框样式
-- **动画效果** - 浮动、脉冲、淡入
+- **PixelButton** - 像素风格交互按钮
+- **Modal** - 像素风格模态框
+- **MDXComponents** - MDX 内容渲染组件
+- **HomeClient** - 首页动态效果
+- **LayoutClient** - 全局布局和导航
 
 ## 🔧 技术栈
 
@@ -164,8 +188,8 @@ npm run ci
 ## 📚 文档
 
 - [架构设计](./docs/ARCHITECTURE.md) - 项目架构详细说明
-- [开发指南](./docs/DEVELOPMENT.md) - 开发最佳实践
-- [部署指南](./docs/DEPLOYMENT.md) - 部署配置说明
+- [AI 编码指南](./CLAUDE.md) - AI 助手开发规范
+- [Agents 规范](./AGENTS.md) - 多 Agent 协作规范
 
 ## 🤝 贡献指南
 
@@ -187,9 +211,9 @@ npm run ci
 
 ## 📞 联系方式
 
-- **项目地址**: [GitHub Repository](https://github.com/your-username/your-repo)
-- **问题反馈**: [Issues](https://github.com/your-username/your-repo/issues)
-- **功能建议**: [Discussions](https://github.com/your-username/your-repo/discussions)
+- **项目地址**: [GitHub Repository](https://github.com/vincent19951222/myBlog)
+- **问题反馈**: [Issues](https://github.com/vincent19951222/myBlog/issues)
+- **功能建议**: [Discussions](https://github.com/vincent19951222/myBlog/discussions)
 
 ---
 
