@@ -1,7 +1,7 @@
 
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { Github, Twitter, Linkedin, Send } from "lucide-react";
+import { Github, Twitter, X, Send } from "lucide-react";
 
 /**
  * @AI-TEMP @TODO: AI Chat Imports
@@ -240,8 +240,13 @@ export default function MePage() {
 
                <div className="flex gap-4 justify-center">
                   <button className="p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 rounded-lg hover:-translate-y-1 transition-transform text-slate-700 dark:text-slate-300 shadow-sm"><Github size={20} /></button>
-                  <button className="p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 rounded-lg hover:-translate-y-1 transition-transform text-blue-500 shadow-sm"><Twitter size={20} /></button>
-                  <button className="p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 rounded-lg hover:-translate-y-1 transition-transform text-blue-700 shadow-sm"><Linkedin size={20} /></button>
+                  <button className="p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 rounded-lg hover:-translate-y-1 transition-transform text-slate-900 dark:text-white shadow-sm"><X size={20} /></button>
+                  <button className="p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 rounded-lg hover:-translate-y-1 transition-transform text-white bg-[#07C160] border-none shadow-sm flex items-center justify-center">
+                     <svg viewBox="0 0 1024 1024" width="20" height="20" fill="currentColor">
+                        <path d="M698.54 345.918c0-109.13-116.828-197.604-260.916-197.604S176.716 236.786 176.716 345.918c0 112.592 124.08 200.57 267.34 195.83l16.126.65-3.952 24.3-19.102 96.096c48.814-25.034 101.996-61.998 126.98-84.596l6.396-5.466c75.244-42.556 128.036-98.58 128.036-166.814zM327.91 306.916c-17.65 0-31.99-14.34-31.99-31.99s14.34-31.99 31.99-31.99 31.99 14.34 31.99 31.99-14.34 31.99-31.99 31.99zm217.666 0c-17.65 0-31.99-14.34-31.99-31.99s14.34-31.99 31.99-31.99c17.65 0 31.99 14.34 31.99 31.99s-14.34 31.99-31.99 31.99z" />
+                        <path d="M847.284 668.21c0-83.31-89.814-150.852-200.57-150.852-110.756 0-200.57 67.542-200.57 150.852 0 83.31 89.814 150.854 200.57 150.854 23.498 0 46.292-3.132 68.04-8.878l57.514 31.298c9.648 6.476 19.222 10.372 26.542 10.372 2.622 0 4.888-0.494 6.782-1.356-0.306-0.64-5.26-28.718-10.662-58.42l-1.636-9.152c33.314-25.752 53.99-58.384 53.99-94.718zM578.844 639.112c-12.722 0-23.064-10.342-23.064-23.064s10.342-23.064 23.064-23.064 23.064 10.342 23.064 23.064-10.342 23.064-23.064 23.064zm134.464 0c-12.722 0-23.064-10.342-23.064-23.064s10.342-23.064 23.064-23.064c12.722 0 23.064 10.342 23.064 23.064s-10.344 23.064-23.064 23.064z" />
+                     </svg>
+                  </button>
                </div>
             </div>
 
