@@ -55,7 +55,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         port: 22
-        script_stop: true
         script: |
           set -e
           cd /www/wwwroot/boluopets.com
@@ -67,10 +66,10 @@ jobs:
           echo "🔫 Killing process on port 3000..."
           lsof -ti:3000 | xargs kill -9 2>/dev/null || echo "Port 3000 is free"
 
-          # 清理旧的构建��物（保留 node_modules 和 .env）
+          # 清理旧的构建产物（保留 node_modules 和 .env）
           echo "🧹 Cleaning old build..."
           rm -rf .next
-          [ -d "public" ] && rm -rf public
+          if [ -d "public" ]; then rm -rf public; fi
 
     # 7. 传输构建产物到 VPS
     - name: Copy build artifacts to server
