@@ -1,0 +1,49 @@
+name: 自动部署 Next.js 到腾讯云
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. 下载代码 (用于本地 lint 检查，可选)
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # 2. SSR 部署：SSH 到服务器执行部署
+    - name: Deploy to Server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: 22
+        script: |
+          cd /www/wwwroot/boluopets.com
+          
+          # 拉取最新代码
+          echo "📥 Pulling latest code..."
+          git pull origin main
+          
+          # 安装依赖
+          echo "📦 Installing dependencies..."
+          npm install --legacy-peer-deps
+          
+          # 构建项目
+          echo "🔨 Building project..."
+          npm run build
+          
+          # 重启 PM2 进程
+          echo "🚀 Restarting PM2..."
+          pm2 restart blog-website || pm2 start npm --name "blog-website" -- start
+          
+          # 保存 PM2 进程列表
+          pm2 save
+          
+          echo "✅ Deployment successful!"
+          pm2 status
+
