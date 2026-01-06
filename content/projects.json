@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "title": "项目探索小岛",
+        "desc": "Three.js+GSAP实现的3D项目展示小岛",
+        "tags": [
+            "Three.js",
+            "GSAP"
+        ],
+        "image": "/images/projects/islands.jpg",
+        "url": "https://explore.boluopets.com/"
+    },
+    {
+        "id": 2,
+        "title": "Merry Christmas",
+        "desc": "祝大家圣诞快乐！",
+        "tags": [
+            "Gemini",
+            "GoodLuckHaveFun"
+        ],
+        "image": "/images/projects/Christmas.png",
+        "url": "https://explore.boluopets.com/merry-christmas.html"
+    },
+    {
+        "id": 3,
+        "title": "My Pets",
+        "desc": "一个展示自己宠物的平台",
+        "tags": [
+            "Three.js",
+            "GSAP"
+        ],
+        "image": "https://placehold.co/400x250/1e293b/F472B6?text=EDITOR",
+        "url": "#"
+    },
+    {
+        "id": 4,
+        "title": "像素画板",
+        "desc": "一个 16x16 的网格画板，用于创建你自己的像素艺术资产。",
+        "tags": [
+            "工具",
+            "艺术"
+        ],
+        "image": "https://placehold.co/400x250/1e293b/A78BFA?text=PAINT",
+        "url": "#"
+    }
+]

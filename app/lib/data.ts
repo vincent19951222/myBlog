@@ -30,7 +30,7 @@ export const BLOG_POSTS = [
     xp: "500 XP",
     color: "bg-green-500",
     image: "https://placehold.co/600x300/166534/4ade80?text=React+Hooks",
-    gif: "https://placehold.co/600x300/0f172a/4ade80?text=React+Hooks+GIF", 
+    gif: "https://placehold.co/600x300/0f172a/4ade80?text=React+Hooks+GIF",
     content: `
 # React Hooks 的传说
 
@@ -259,33 +259,6 @@ function identity<T>(arg: T): T {
   }
 ];
 
-export const PROJECTS = [
-  {
-    id: 1,
-    title: "复古贪吃蛇",
-    desc: "使用纯 JavaScript 和 HTML5 Canvas 构建的经典贪吃蛇游戏。",
-    tags: ["游戏", "Canvas"],
-    image: "https://placehold.co/400x250/1e293b/FACC15?text=SNAKE"
-  },
-  {
-    id: 2,
-    title: "天气任务",
-    desc: "游戏化的天气应用。每天查看天气预报可获得 XP。",
-    tags: ["API", "React"],
-    image: "https://placehold.co/400x250/1e293b/4ADE80?text=WEATHER"
-  },
-  {
-    id: 3,
-    title: "Code Editor Pro",
-    desc: "完全在浏览器中运行的轻量级代码编辑器，使用 WebAssembly。",
-    tags: ["WASM", "工具"],
-    image: "https://placehold.co/400x250/1e293b/F472B6?text=EDITOR"
-  },
-  {
-    id: 4,
-    title: "像素画板",
-    desc: "一个 16x16 的网格画板，用于创建你自己的像素艺术资产。",
-    tags: ["工具", "艺术"],
-    image: "https://placehold.co/400x250/1e293b/A78BFA?text=PAINT"
-  }
-];
+import projectsData from '@/content/projects.json';
+
+export const PROJECTS = projectsData;

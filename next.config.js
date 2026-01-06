@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // SSR 模式 - 不再使用静态导出
+  // 部署时使用 PM2 运行 next start，Nginx 反向代理
   trailingSlash: true,
 
   images: {
@@ -11,9 +12,7 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
   },
-
-  // 注意：静态导出模式下 headers 配置不会生效
-  // 需要在部署服务器上配置安全头部
 }
 
 export default nextConfig
+

@@ -6,53 +6,44 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. 下载代码
+    # 1. 下载代码 (用于本地 lint 检查，可选)
     - name: Checkout
       uses: actions/checkout@v3
 
-    # 2. 准备环境
-    - name: Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-
-    # 3. 安装依赖并构建
-    - name: Install and Build
-      run: |
-        npm install --legacy-peer-deps
-        npm run build
-      # 注意：build 生成的是 out 文件夹（因为 next.config.js 配置了 output: 'export'）
-
-    # 4. 上传文件到服务器 (静态部署模式)
-    - name: Copy files to Server
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: 22
-        debug: true
-        use_insecure_cipher: true
-        
-        # ⭐ 静态部署：只上传 out 文件夹的内容
-        source: "out"
-        target: "/www/wwwroot/boluopets.com"
-        # 去掉第一层目录(out)，直接把内容放到根目录
-        strip_components: 1
-
-    # 5. 远程执行命令 (可选)
-    # 静态网站通常不需要重启服务，除非你需要重载 Nginx 配置
-    # 这里我们只打印一下文件列表确认上传成功
-    - name: Verify Deployment
+    # 2. SSR 部署：SSH 到服务器执行部署
+    - name: Deploy to Server
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
+        port: 22
         script: |
-          echo "Deployment successful!"
-          ls -al /www/wwwroot/boluopets.com
+          cd /www/wwwroot/boluopets.com
+          
+          # 拉取最新代码
+          echo "📥 Pulling latest code..."
+          git pull origin main
+          
+          # 安装依赖
+          echo "📦 Installing dependencies..."
+          npm install --legacy-peer-deps
+          
+          # 构建项目
+          echo "🔨 Building project..."
+          npm run build
+          
+          # 重启 PM2 进程
+          echo "🚀 Restarting PM2..."
+          pm2 restart blog-website || pm2 start npm --name "blog-website" -- start
+          
+          # 保存 PM2 进程列表
+          pm2 save
+          
+          echo "✅ Deployment successful!"
+          pm2 status
+
