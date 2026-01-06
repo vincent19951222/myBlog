@@ -60,10 +60,14 @@ jobs:
           set -e
           cd /www/wwwroot/boluopets.com
 
-          echo "🛑 Stopping PM2..."
-          pm2 stop blog-website 2>/dev/null || echo "PM2 not running"
+          echo "🛑 Deleting PM2 process..."
+          pm2 delete blog-website 2>/dev/null || echo "Process not found"
 
-          # 清理旧的构建产物（保留 node_modules 和 .env）
+          # 强制杀掉可能占用 3000 端口的进程
+          echo "🔫 Killing process on port 3000..."
+          lsof -ti:3000 | xargs kill -9 2>/dev/null || echo "Port 3000 is free"
+
+          # 清理旧的构建��物（保留 node_modules 和 .env）
           echo "🧹 Cleaning old build..."
           rm -rf .next
           [ -d "public" ] && rm -rf public
@@ -80,7 +84,7 @@ jobs:
         target: "/www/wwwroot/boluopets.com"
         strip_components: 1
 
-    # 7. 安装依赖（如果需要）并重启 PM2
+    # 8. 安装依赖（如果需要）并启动 PM2
     - name: Finalize deployment
       uses: appleboy/ssh-action@master
       with:
@@ -100,7 +104,6 @@ jobs:
           fi
 
           echo "🚀 Starting PM2..."
-          pm2 restart blog-website ||
           pm2 start npm --name "blog-website" -- start
 
           pm2 save
