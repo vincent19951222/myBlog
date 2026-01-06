@@ -33,3 +33,6 @@ out
 *.sw?
 *.tsbuildinfo
 coverage/
+
+# Local scratch clones
+test-clone/
