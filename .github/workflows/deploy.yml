@@ -45,8 +45,14 @@ jobs:
           echo "🔨 Building project..."
           npm run build
 
-          echo "🚀 Restarting PM2..."
-          pm2 restart blog-website ||
+          echo "🛑 Stopping PM2..."
+          pm2 delete blog-website || echo "PM2 service not found"
+
+          echo "🧹 Cleaning up port 3000..."
+          # 尝试杀掉占用 3000 端口的僵尸进程 (如果没有进程占用，忽略错误)
+          lsof -ti:3000 | xargs -r kill -9 2>/dev/null || true
+
+          echo "🚀 Starting PM2..."
           pm2 start npm --name "blog-website" -- start
 
           pm2 save
