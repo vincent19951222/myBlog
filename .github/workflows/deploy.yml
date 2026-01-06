@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. 下载代码 (用于本地 lint 检查，可选)
+    # 1. 下载代码
     - name: Checkout
       uses: actions/checkout@v3
 
@@ -22,28 +22,35 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         port: 22
+        script_stop: true  # 任何命令失败时停止
         script: |
+          set -e  # 任何命令失败时退出
+
+          echo "📍 Changing to project directory..."
           cd /www/wwwroot/boluopets.com
-          
-          # 拉取最新代码
+
+          echo "🔍 Current git status before pull:"
+          git status
+
           echo "📥 Pulling latest code..."
-          git pull origin main
-          
-          # 安装依赖
+          git fetch origin
+          git reset --hard origin/main  # 使用 reset 确保完全同步
+
+          echo "📌 Current commit:"
+          git log -1 --oneline
+
           echo "📦 Installing dependencies..."
           npm install --legacy-peer-deps
-          
-          # 构建项目
+
           echo "🔨 Building project..."
           npm run build
-          
-          # 重启 PM2 进程
+
           echo "🚀 Restarting PM2..."
-          pm2 restart blog-website || pm2 start npm --name "blog-website" -- start
-          
-          # 保存 PM2 进程列表
+          pm2 restart blog-website ||
+          pm2 start npm --name "blog-website" -- start
+
           pm2 save
-          
+
           echo "✅ Deployment successful!"
           pm2 status
 

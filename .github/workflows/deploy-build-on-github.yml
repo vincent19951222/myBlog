@@ -1,0 +1,109 @@
+name: 自动部署 Next.js 到腾讯云 (GitHub 构建)
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. 下载代码
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # 2. 设置 Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'npm'
+
+    # 3. 安装依赖
+    - name: Install dependencies
+      run: npm install --legacy-peer-deps
+
+    # 4. 在 GitHub 上构建（可访问 Google Fonts）
+    - name: Build project
+      run: npm run build
+      env:
+        # 这里可以设置任何构建时需要的环境变量
+        NODE_ENV: production
+
+    # 5. 创建部署包（包含所有运行需要的文件）
+    - name: Create deployment package
+      run: |
+        mkdir -p deploy
+
+        # 复制构建产物（包含 API Router）
+        cp -r .next deploy/
+
+        # 复制 public 目录（静态资源）
+        cp -r public deploy/
+
+        # 复制 package 配置（用于检查依赖变化）
+        cp package.json deploy/
+        [ -f "package-lock.json" ] && cp package-lock.json deploy/
+
+    # 6. 先停止 PM2 并清理旧构建
+    - name: Prepare server for deployment
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: 22
+        script_stop: true
+        script: |
+          set -e
+          cd /www/wwwroot/boluopets.com
+
+          echo "🛑 Stopping PM2..."
+          pm2 stop blog-website 2>/dev/null || echo "PM2 not running"
+
+          # 清理旧的构建产物（保留 node_modules 和 .env）
+          echo "🧹 Cleaning old build..."
+          rm -rf .next
+          [ -d "public" ] && rm -rf public
+
+    # 7. 传输构建产物到 VPS
+    - name: Copy build artifacts to server
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: 22
+        source: "deploy/*"
+        target: "/www/wwwroot/boluopets.com"
+        strip_components: 1
+
+    # 7. 安装依赖（如果需要）并重启 PM2
+    - name: Finalize deployment
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: 22
+        script_stop: true
+        script: |
+          set -e
+          cd /www/wwwroot/boluopets.com
+
+          # 如果 package.json 有变化，重新安装依赖
+          if [ ! -f ".next/BUILD_ID" ] || [ "package.json" -nt "node_modules" ]; then
+            echo "📦 Installing dependencies..."
+            npm install --legacy-peer-deps
+          fi
+
+          echo "🚀 Starting PM2..."
+          pm2 restart blog-website ||
+          pm2 start npm --name "blog-website" -- start
+
+          pm2 save
+
+          echo "✅ Deployment successful!"
+          pm2 status
