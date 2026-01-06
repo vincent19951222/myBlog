@@ -84,7 +84,7 @@ jobs:
         target: "/www/wwwroot/boluopets.com"
         strip_components: 1
 
-    # 8. 安装依赖（如果需要）并启动 PM2
+    # 8. 启动 PM2
     - name: Finalize deployment
       uses: appleboy/ssh-action@master
       with:
@@ -94,14 +94,7 @@ jobs:
         port: 22
         script_stop: true
         script: |
-          set -e
           cd /www/wwwroot/boluopets.com
-
-          # 如果 package.json 有变化，重新安装依赖
-          if [ ! -f ".next/BUILD_ID" ] || [ "package.json" -nt "node_modules" ]; then
-            echo "📦 Installing dependencies..."
-            npm install --legacy-peer-deps
-          fi
 
           echo "🚀 Starting PM2..."
           pm2 start npm --name "blog-website" -- start
