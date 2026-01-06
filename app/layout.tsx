@@ -50,7 +50,7 @@ export default function RootLayout({
           }
         `}}></script>
       </head>
-      <body className={`${inter.className} font-sans antialiased`}>
+      <body suppressHydrationWarning className={`${inter.className} font-sans antialiased`}>
         <ThemeProvider>
           <div className="bg-pixel-grid min-h-screen flex flex-col transition-colors duration-300 bg-white dark:bg-[#050b14] selection:bg-yellow-500/30 selection:text-yellow-900">
             <NavBar />

@@ -123,7 +123,8 @@ input[type="button"],
 input[type="submit"],
 .pixel-card,
 .nes-pointer {
-    cursor: url(https://unpkg.com/nes.css@latest/assets/cursor-click.png), auto !important;
+    /* Use inlined SVG to avoid external fetch blocking the custom cursor */
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cpath fill='%23000' d='M4 3l13 10-5 1 5 9-3.4 2L9 16l-3 3z'/%3E%3C/svg%3E"), auto !important;
 }
 
 /* Text input cursor */
