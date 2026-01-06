@@ -108,4 +108,6 @@ jobs:
           pm2 save
 
           echo "✅ Deployment successful!"
+          echo "📌 Current BUILD_ID:"
+          cat .next/BUILD_ID
           pm2 status
