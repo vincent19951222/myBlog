@@ -96,6 +96,12 @@ jobs:
         script: |
           cd /www/wwwroot/boluopets.com
 
+          # 确保 node_modules 存在
+          if [ ! -d "node_modules" ]; then
+            echo "📦 Installing dependencies..."
+            npm install --legacy-peer-deps
+          fi
+
           echo "🚀 Starting PM2..."
           pm2 start npm --name "blog-website" -- start
 
